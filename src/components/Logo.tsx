@@ -72,10 +72,10 @@ export default function Logo({
             />
             
             {/* Monogram Monoliths */}
-            {/* Left vertical-ish pillar with diagonal cut */}
+            {/* Left vertical-ish pillar with diagonal cut (The white part) */}
             <path
               d="M 16,22 L 28,22 L 28,55 L 16,67 Z"
-              fill="url(#dmGradient)"
+              fill={darkMode ? "#FFFFFF" : "#0F172A"}
             />
             
             {/* Rightwards sweeping loop of D */}
