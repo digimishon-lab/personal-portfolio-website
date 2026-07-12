@@ -12,8 +12,8 @@ interface LogoProps {
 export default function Logo({ 
   darkMode = true, 
   className = "",
-  useImage = false, // Set this to true to use an image file instead of the inline SVG monogram
-  imageSrc = "/logo.png" // Path to your logo in the public directory (e.g., public/logo.png)
+  useImage = true, // Set this to true to use an image file instead of the inline SVG monogram
+  imageSrc = "/logo.jpg" // Path to your logo in the public directory (e.g., public/logo.png)
 }: LogoProps) {
   return (
     <div className={`flex items-center gap-3 select-none ${className}`}>
