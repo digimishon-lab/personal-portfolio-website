@@ -82,20 +82,73 @@ export default function Header({
             : "bg-transparent border-transparent"
         } backdrop-blur-md`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 sm:py-4 flex items-center justify-between">
-          <div className="flex items-center cursor-pointer" onClick={() => handleNavClick("hero")}>
-            <Logo darkMode={darkMode} />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex flex-col lg:gap-3.5">
+          {/* Upper Row: Logo & Actions */}
+          <div className="flex items-center justify-between w-full">
+            <div className="flex items-center cursor-pointer" onClick={() => handleNavClick("hero")}>
+              <Logo darkMode={darkMode} />
+            </div>
+
+            {/* Controls & CTA buttons */}
+            <div className="flex items-center space-x-2.5 sm:space-x-3">
+              {/* Desktop Social Links */}
+              <div className="hidden md:flex items-center space-x-1.5 mr-1.5">
+                {socialLinks.map((link) => {
+                  const IconComponent = link.icon;
+                  return (
+                    <a
+                      key={link.key}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 border border-white/5 bg-white/[0.02] hover:bg-brand-blue-500/10 hover:border-brand-blue-500/35 text-gray-400 hover:text-brand-blue-400 rounded-md transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer flex items-center justify-center"
+                      title={link.label}
+                    >
+                      <IconComponent className="w-3.5 h-3.5" />
+                    </a>
+                  );
+                })}
+              </div>
+
+              {/* Language Switcher */}
+              <button
+                onClick={() => setLang(lang === "EN" ? "NP" : "EN")}
+                className="flex items-center space-x-1 px-2.5 py-1.5 text-xs font-mono uppercase border border-white/10 bg-black/30 text-gray-300 hover:border-brand-blue-500 rounded-md transition-all cursor-pointer"
+                title="Switch Language"
+              >
+                <Globe2 className="w-3 h-3 text-brand-blue-400 animate-pulse" />
+                <span>{lang}</span>
+              </button>
+
+              {/* Booking CTA button */}
+              <button
+                onClick={() => handleNavClick("scheduler")}
+                className="hidden sm:inline-flex items-center space-x-2 px-4 py-2.5 bg-gradient-to-r from-brand-blue-600 to-brand-purple-600 text-white rounded text-xs font-mono uppercase tracking-wider hover:from-brand-blue-500 hover:to-brand-purple-500 transition-all shadow-md shadow-brand-blue-500/10 border border-brand-blue-400/20 active:scale-95 cursor-pointer"
+              >
+                <Calendar className="w-3.5 h-3.5" />
+                <span>{lang === "EN" ? "Book a Consultation" : "परामर्श बुक गर्नुहोस्"}</span>
+              </button>
+
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="lg:hidden p-2 border border-white/10 hover:bg-black/40 text-brand-blue-400 rounded-md transition-colors cursor-pointer"
+                aria-label="Toggle Menu"
+              >
+                {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              </button>
+            </div>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-6 xl:space-x-8 text-xs font-mono uppercase tracking-widest">
+          {/* Lower Row: Navigation Links (Desktop Only) */}
+          <div className="hidden lg:flex items-center space-x-6 xl:space-x-8 text-xs font-mono uppercase tracking-widest pt-2.5 border-t border-white/5">
             {navItems.map((item) => {
               const isActive = activeTab === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`relative hover:text-brand-blue-400 transition-all py-1.5 px-1 font-medium cursor-pointer ${
+                  className={`relative hover:text-brand-blue-400 transition-all py-1 px-1.5 font-medium cursor-pointer ${
                     isActive
                       ? "text-brand-blue-400"
                       : "text-gray-400 hover:text-white"
@@ -112,58 +165,6 @@ export default function Header({
                 </button>
               );
             })}
-          </div>
-
-          {/* Controls & CTA buttons */}
-          <div className="flex items-center space-x-2.5 sm:space-x-3">
-            {/* Desktop Social Links */}
-            <div className="hidden md:flex items-center space-x-1.5 mr-1.5">
-              {socialLinks.map((link) => {
-                const IconComponent = link.icon;
-                return (
-                  <a
-                    key={link.key}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 border border-white/5 bg-white/[0.02] hover:bg-brand-blue-500/10 hover:border-brand-blue-500/35 text-gray-400 hover:text-brand-blue-400 rounded-md transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer flex items-center justify-center"
-                    title={link.label}
-                  >
-                    <IconComponent className="w-3.5 h-3.5" />
-                  </a>
-                );
-              })}
-            </div>
-
-            {/* Language Switcher */}
-            <button
-              onClick={() => setLang(lang === "EN" ? "NP" : "EN")}
-              className="flex items-center space-x-1 px-2.5 py-1.5 text-xs font-mono uppercase border border-white/10 bg-black/30 text-gray-300 hover:border-brand-blue-500 rounded-md transition-all cursor-pointer"
-              title="Switch Language"
-            >
-              <Globe2 className="w-3 h-3 text-brand-blue-400 animate-pulse" />
-              <span>{lang}</span>
-            </button>
-
-
-
-            {/* Booking CTA button */}
-            <button
-              onClick={() => handleNavClick("scheduler")}
-              className="hidden sm:inline-flex items-center space-x-2 px-4 py-2.5 bg-gradient-to-r from-brand-blue-600 to-brand-purple-600 text-white rounded text-xs font-mono uppercase tracking-wider hover:from-brand-blue-500 hover:to-brand-purple-500 transition-all shadow-md shadow-brand-blue-500/10 border border-brand-blue-400/20 active:scale-95 cursor-pointer"
-            >
-              <Calendar className="w-3.5 h-3.5" />
-              <span>{lang === "EN" ? "Book a Consultation" : "परामर्श बुक गर्नुहोस्"}</span>
-            </button>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 border border-white/10 hover:bg-black/40 text-brand-blue-400 rounded-md transition-colors cursor-pointer"
-              aria-label="Toggle Menu"
-            >
-              {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
-            </button>
           </div>
         </div>
 
