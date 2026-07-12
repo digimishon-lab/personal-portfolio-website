@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mishondahal.com.np/sitemap.xml
